@@ -23,7 +23,5 @@ jobs:
       run: |
         BLANCH=`git branch --show-current`
         # git diff --name-only `git merge-base ${BLANCH} origin/master` | xargs pycodestyle
-        echo ${BLANCH}
-        BB=`echo ${BLANCH}`
-        echo ${BB}
-        git diff --name-only `git merge-base ${BLANCH} origin/master`
+        BASE_ID=`git merge-base ${BLANCH} origin/master`
+        git diff --name-only ${BASE_ID} | xargs pycodestyle

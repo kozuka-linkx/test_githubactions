@@ -23,9 +23,6 @@ jobs:
       run: pip install pycodestyle
     - name: Run pycodestyle
       run: |
-        BLANCH=`git branch --show-current`
-        # git diff --name-only `git merge-base ${BLANCH} origin/master` | xargs pycodestyle
-        echo $(git branch)
-        BASE_ID=`git merge-base ${BLANCH} master`
-        echo ${BASE_ID}
-        git diff --name-only ${BASE_ID} | xargs pycodestyle
+        BEFORE_SHA=$(jq -r '.before' $GITHUB_EVENT_PATH)
+        echo ${BEFORE_SHA}
+        git diff --name-only ${BEFORE_SHA} | xargs pycodestyle

@@ -21,6 +21,6 @@ jobs:
       with:
         python-version: 3.8
     - name: Install PEP8
-      run: pip install pep8
+      run: pip install pycodestyle
     - name: Run PEP8
-      run: pep8
+      run: pycodestyle --first test.py

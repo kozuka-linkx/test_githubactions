@@ -28,4 +28,4 @@ jobs:
         FILES=$(git diff --name-only ${BLANCH_START})
     
         if [ ${#FILES[@]} -eq 0 ]; then success; fi
-        for file in ${FILES[@]}; do; pycodestyle ${file}; done
+        for file in ${FILES[@]}; do pycodestyle ${file}; done

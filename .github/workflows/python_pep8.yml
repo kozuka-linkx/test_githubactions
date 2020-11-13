@@ -25,4 +25,7 @@ jobs:
       run: |
         git fetch origin master
         BLANCH_START=$(git merge-base `git branch --show-current` origin/master)
-        git diff --name-only ${BLANCH_START} | xargs pycodestyle
+        FILES=$(git diff --name-only ${BLANCH_START})
+    
+        if [ ${#FILES[@]} -eq 0 ]; then success; fi
+        for file in ${FILES[@]}; do; pycodestyle ${file}; done

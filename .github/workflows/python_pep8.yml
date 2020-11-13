@@ -25,6 +25,6 @@ jobs:
       run: |
         # BEFORE_SHA=$(jq -r '.before' $GITHUB_EVENT_PATH)
         # echo ${BEFORE_SHA}
-        git fetch --depth 0 origin master
+        git fetch origin master
         git merge-base `git branch --show-current` origin/master
         git diff --name-only ${BEFORE_SHA} | xargs pycodestyle

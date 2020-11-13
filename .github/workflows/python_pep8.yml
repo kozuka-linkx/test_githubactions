@@ -25,7 +25,7 @@ jobs:
       run: |
         git fetch origin master
         BLANCH_START=$(git merge-base `git branch --show-current` origin/master)
-        FILES=$(git diff --name-only ${BLANCH_START})
+        FILES=$(git diff --name-only ${BLANCH_START} | find -name "*.py")
     
         if [ ${#FILES[@]} -eq 0 ]; then echo "no diff file"; success; fi
         for file in ${FILES[@]}; do echo ${file}; pycodestyle ${file}; done

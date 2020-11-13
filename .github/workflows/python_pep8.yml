@@ -27,5 +27,5 @@ jobs:
         BLANCH_START=$(git merge-base `git branch --show-current` origin/master)
         FILES=$(git diff --name-only ${BLANCH_START})
     
-        if [ ${#FILES[@]} -eq 0 ]; then success; fi
+        if [ ${#FILES[@]} -eq 0 ]; then echo "no diff file"; success; fi
         for file in ${FILES[@]}; do pycodestyle ${file}; done

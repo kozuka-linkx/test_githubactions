@@ -28,4 +28,5 @@ jobs:
         FILES=$(git diff --name-only ${BLANCH_START} -- *.py)
     
         if [ ${#FILES[@]} -eq 0 ]; then echo "no diff file"; success; fi
-        for file in ${FILES[@]}; do echo ${file}; pycodestyle ${file}; done
+        for file in ${FILES[@]}; do echo ${file}; done
+        pycodestyle ${FILES}

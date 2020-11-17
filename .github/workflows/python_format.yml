@@ -6,7 +6,7 @@ name: Python format
 on:
   push:
     paths:
-      - "*.py"
+      - "**.py"
 jobs:
   build:
     runs-on: ubuntu-latest

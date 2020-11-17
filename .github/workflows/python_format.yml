@@ -25,6 +25,7 @@ jobs:
       run: |
         TARGET="master"
         COUNT=0
+        THRESHOLD=9.0
 
         git fetch origin ${TARGET}
         BLANCH_START=$(git merge-base `git branch --show-current` origin/${TARGET})
@@ -33,4 +34,4 @@ jobs:
         if [ ${#FILES[@]} -eq 0 ]; then echo "no diff file 1"; success; fi
         for file in ${FILES[@]}; do echo ${file}; COUNT=$(( ${COUNT} + ${#file} )); done
         if [ ${COUNT} -eq 0 ]; then "no diff file 2"; success; fi
-        pylint --rcfile=.pylintrc ${FILES}
+        pylint --rcfile=.pylintrc --fail-under=${THRESHOLD} ${FILES}

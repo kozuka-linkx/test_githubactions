@@ -35,4 +35,4 @@ jobs:
         for file in ${FILES[@]}; do echo ${file}; COUNT=$(( ${COUNT} + ${#file} )); done
         if [ ${COUNT} -eq 0 ]; then "no diff file 2"; success; fi
         pylint --rcfile=.pylintrc --fail-under=${THRESHOLD} ${FILES} > temp.txt
-        exit 1
+        exit 0

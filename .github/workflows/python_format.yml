@@ -32,5 +32,5 @@ jobs:
     
         if [ ${#FILES[@]} -eq 0 ]; then echo "no diff file 1"; success; fi
         for file in ${FILES[@]}; do echo ${file}; COUNT=$(( ${COUNT} + ${#file} )); done
-        if [ ${COUNT} -eq 0 ]: then "no diff file 2"; success; fi
+        if [ ${COUNT} -eq 0 ]; then "no diff file 2"; success; fi
         pylint --rcfile=.pylintrc ${FILES}

@@ -1,7 +1,7 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: Python application
+name: Python format
 
 on:
   push:
@@ -19,14 +19,15 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
-    - name: Install pycodestyle
-      run: pip install pycodestyle
-    - name: Run pycodestyle
+    - name: Install pylint
+      run: pip install pylint
+    - name: Run pylint
       run: |
-        git fetch origin master
-        BLANCH_START=$(git merge-base `git branch --show-current` origin/master)
+        TARGET="master"
+        git fetch origin ${TARGET}
+        BLANCH_START=$(git merge-base `git branch --show-current` origin/${TARGET})
         FILES=$(git diff --name-only ${BLANCH_START} -- *.py)
     
         if [ ${#FILES[@]} -eq 0 ]; then echo "no diff file"; success; fi
         for file in ${FILES[@]}; do echo ${file}; done
-        pycodestyle ${FILES}
+        pylint --rcfile=.pylintrc ${FILES}

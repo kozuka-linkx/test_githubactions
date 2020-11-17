@@ -24,10 +24,13 @@ jobs:
     - name: Run pylint
       run: |
         TARGET="master"
+        COUNT=0
+
         git fetch origin ${TARGET}
         BLANCH_START=$(git merge-base `git branch --show-current` origin/${TARGET})
-        FILES=$(git diff --name-only ${BLANCH_START} -- *.py)
+        FILES=$(git diff --name-only ${BLANCH_START} -- "**.py")
     
-        if [ ${#FILES[@]} -eq 0 ]; then echo "no diff file"; success; fi
-        for file in ${FILES[@]}; do echo ${file}; done
+        if [ ${#FILES[@]} -eq 0 ]; then echo "no diff file 1"; success; fi
+        for file in ${FILES[@]}; do echo ${file}; COUNT=$(( ${COUNT} + ${#file} )); done
+        if [ ${COUNT} -eq 0 ]: then "no diff file 2"; success; fi
         pylint --rcfile=.pylintrc ${FILES}

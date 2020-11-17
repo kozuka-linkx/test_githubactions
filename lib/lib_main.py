@@ -1,4 +1,5 @@
 print("aa")
 
-w = 10
 #aaaa
+w = 10
+s = 10

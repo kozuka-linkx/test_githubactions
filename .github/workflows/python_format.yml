@@ -25,7 +25,7 @@ jobs:
       run: |
         TARGET="master"
         COUNT=0
-        THRESHOLD=9.0
+        THRESHOLD=7.0
 
         git fetch origin ${TARGET}
         BLANCH_START=$(git merge-base `git branch --show-current` origin/${TARGET})

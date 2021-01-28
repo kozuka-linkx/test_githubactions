@@ -6,7 +6,7 @@ name: Python format
 on:
   push:
     paths:
-      - "*.py"
+      - "**.py"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,12 +25,14 @@ jobs:
       run: |
         TARGET="master"
         COUNT=0
+        THRESHOLD=7.0
 
         git fetch origin ${TARGET}
         BLANCH_START=$(git merge-base `git branch --show-current` origin/${TARGET})
         FILES=$(git diff --name-only ${BLANCH_START} -- "**.py")
     
-        if [ ${#FILES[@]} -eq 0 ]; then echo "no diff file 1"; success; fi
+        if [ ${#FILES[@]} -eq 0 ]; then echo "no diff file 1"; exit 0; fi
         for file in ${FILES[@]}; do echo ${file}; COUNT=$(( ${COUNT} + ${#file} )); done
-        if [ ${COUNT} -eq 0 ]: then "no diff file 2"; success; fi
-        pylint --rcfile=.pylintrc ${FILES}
+        if [ ${COUNT} -eq 0 ]; then "no diff file 2"; exit 0; fi
+        pylint --rcfile=.pylintrc --fail-under=${THRESHOLD} ${FILES}
+        exit 0

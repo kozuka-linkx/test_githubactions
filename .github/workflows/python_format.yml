@@ -33,6 +33,6 @@ jobs:
     
         if [ ${#FILES[@]} -eq 0 ]; then echo "no diff file 1"; exit 0; fi
         for file in ${FILES[@]}; do echo ${file}; COUNT=$(( ${COUNT} + ${#file} )); done
-        if [ ${COUNT} -eq 0 ]; then "no diff file 2"; exit 0; fi
+        if [ ${COUNT} -eq 0 ]; then echo "no diff file 2"; exit 0; fi
         pylint --rcfile=.pylintrc --fail-under=${THRESHOLD} ${FILES}
         exit 0
